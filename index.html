@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productions Magik – Animation sportive</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --bg-soft:#111827;
+      --card:#0b1220;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#ef4444;
+      --accent-2:#3b82f6;
+      --ring:rgba(255,255,255,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0; scroll-behavior:smooth;}
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: linear-gradient(120deg,var(--bg),var(--bg-soft));
+      color: var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none; cursor:pointer;}
+    header{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(8px);
+      background: rgba(8,12,22,.6);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;
+    }
+    .brand{display:flex;align-items:center;gap:16px; font-weight:700; letter-spacing:.2px}
+    .brand-logo{height:64px !important; width:auto; display:block; object-fit:contain; filter: brightness(1.05) contrast(.95) drop-shadow(0 1px 4px rgba(0,0,0,.25));}
+    .menu{display:flex;gap:18px;align-items:center}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 10px 30px rgba(0,0,0,.25);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      font-weight:600
+    }
+    .btn:hover{transform:translateY(-1px);border-color:var(--ring);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+    .btn.accent{border-color:transparent;background: linear-gradient(180deg, var(--accent), #b91c1c);}  
+
+    .hero{
+      padding:72px 20px 56px; text-align:center; position:relative; overflow:hidden;
+    }
+    .hero .inner{max-width:900px;margin:0 auto}
+    .eyebrow{font-size:.9rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+    h1{font-size: clamp(2rem, 4vw, 3rem); margin:.4em 0 .3em; line-height:1.15}
+    .lead{color:#d1d5db; font-size: clamp(1rem, 2.2vw, 1.2rem)}
+    .cta{margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+    .offer-note{margin-top:16px; font-size:.95rem; color:var(--muted)}
+
+    .section{padding:56px 20px;}
+    .wrap{max-width:1100px;margin:0 auto}
+    .grid{
+      display:grid; gap:18px; grid-template-columns: repeat(12,1fr);
+    }
+    .card{
+      background: radial-gradient(1200px 300px at 100% -50%, rgba(59,130,246,.1), transparent 60%), var(--card);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius:16px; padding:18px 18px 20px; box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .muted{color:var(--muted)}
+    h2{font-size: clamp(1.4rem, 2.6vw, 1.8rem); margin:0 0 14px}    /* Offset d’ancre pour éviter que le header cache le titre */
+    #services, #tarifs, #contact, #apropos { scroll-margin-top: 120px; }
+
+    /* ===== Logo vectoriel (reprise de la carte) ===== */
+    .brand{display:flex;align-items:center;gap:16px;font-weight:700;letter-spacing:.2px}
+    .logo-diamond{width:48px;height:48px;display:block}
+    .brand-stack{display:flex;flex-direction:column;line-height:1.05}
+    .brand-name{font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:clamp(1.05rem,1.8vw,1.28rem)}
+    .brand-sub{font-size:.9rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+    @media (max-width:900px){.brand-sub{font-size:.9rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}}
+
+    @media (max-width: 900px){
+      .grid{grid-template-columns: 1fr}
+      .brand-logo{height:56px !important}
+    }
+    footer{
+      padding:36px 20px; border-top:1px solid rgba(255,255,255,.08); text-align:center; color:var(--muted)
+    }
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .kicker{font-size:.95rem;color:var(--muted)}
+    .footnote{font-size:.85rem;color:var(--muted)}
+      /* Bloc identité textuelle (au lieu du logo image) */
+    .brand-text{display:flex;flex-direction:column;line-height:1.1}
+    .brand-name{font-weight:800;font-size:clamp(1.05rem,1.8vw,1.25rem)}
+    .brand-sub{font-size:.9rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+    @media (max-width:900px){.brand-sub{font-size:.9rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}}
+      /* === Ajustements pour copie fidèle du logo de la carte === */
+    .logo-diamond{width:56px;height:56px;display:block}
+    .brand-stack{display:flex;flex-direction:column;line-height:1.02}
+    .brand-name{font-weight:900;letter-spacing:.14em;text-transform:uppercase;transform:scaleX(.98);transform-origin:left center}
+    .brand-sub{font-size:.9rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand" aria-label="Logo Productions Magik">
+        <!-- Logo vectoriel fidèle -->
+        <img id="brandLogo" class="brand-logo" alt="Productions Magik — Logo" style="display:none;width:auto;object-fit:contain" />
+        <svg class="logo-diamond" viewBox="0 0 100 100" role="img" aria-label="Losange Productions Magik" xmlns="http://www.w3.org/2000/svg">
+          <g transform="rotate(45 50 50)">
+            <rect x="14" y="14" width="72" height="72" fill="#0a3d91"/>
+            <path d="M14 50 H86 V86 H14 Z" fill="#c8102e"/>
+            <rect x="24" y="24" width="52" height="52" fill="none" stroke="#ffffff" stroke-opacity=".9" stroke-width="2"/>
+            <rect x="14" y="14" width="72" height="72" fill="none" stroke="#ffffff" stroke-width="4"/>
+          </g>
+        </svg>
+        <div class="brand-stack">
+          <span class="brand-name">PRODUCTIONS MAGIK</span>
+          <span class="brand-sub">SERVICE ANIMATION SPORTIVE</span>
+        </div>
+      </div>
+      <nav class="menu">
+        <a href="#services">Services</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#apropos">À propos</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="inner">
+      <div class="eyebrow">Animation des matchs du Canadien en temps réel à distance via Internet</div>
+      <h1>L’ambiance du Centre Bell, comme si vous y étiez</h1>
+      <p class="lead">Une technologie unique, soutenue par de vrais animateurs, pour une ambiance authentique.</p>
+      <div class="cta">
+        <a class="btn accent" href="mailto:info@productionsmagik.com?subject=Demande%20d%27essai%20%E2%80%93%20Productions%20Magik&body=Bonjour%2C%0A%0ANous souhaitons faire un essai de l’animation hockey en établissement.%0A%0AEntreprise%20%3A%20%0AVille%20%3A%20%0ADisponibilit%C3%A9%20%3A%20%0A%0AMerci!">Réserver un essai</a>
+      </div>
+      <p class="offer-note"><strong>Deux matchs d’essai gratuits, sans aucune obligation</strong><sup>*</sup>.</p>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="wrap">
+      <h2>Nos services</h2>
+      <p class="kicker">Solutions clés en main pour animer les soirs de match, maintenir l’ambiance pendant les pauses et les entractes, et fidéliser votre clientèle.</p>
+      <div class="grid">
+        <div class="card" style="grid-column: span 4;">
+          <span class="pill">Animation</span>
+          <h3>Animation de match</h3>
+          <p class="muted">Chaque prestation offre plus de <strong style='color:var(--accent)'>3&nbsp;h&nbsp;30</strong> d’animation par match : <strong style='color:var(--accent)'>30&nbsp;minutes</strong> de musique pour accueillir vos clients, environ <strong style='color:var(--accent)'>2&nbsp;h&nbsp;30</strong> d’animation en direct durant le match, et <strong style='color:var(--accent)'>30&nbsp;minutes</strong> supplémentaires après la rencontre afin de vous laisser le temps de finaliser le service auprès de votre clientèle.</p>
+        </div>
+        <div class="card" style="grid-column: span 4;">
+          <span class="pill">Technologie</span>
+          <h3>Logiciel S.A.S. (v.2) <small>(service d’animation sportive)</small></h3>
+          <p class="muted">Notre solution propriétaire nous permet de prendre le contrôle musical de votre établissement, en orchestrant musique et effets sonores pour offrir une expérience immersive et parfaitement adaptée.</p>
+        </div>
+        <div class="card" style="grid-column: span 4;">
+          <span class="pill">Ambiance</span>
+          <h3>Effets et musique</h3>
+          <p class="muted">Ambiances musicales et sonores assurées pendant les pauses et les entractes, afin de préserver l’énergie et l’enthousiasme de vos clients.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tarifs" class="section">
+    <div class="wrap">
+      <h2>Tarifs</h2>
+      <div class="grid">
+        <!-- Carte 1 : Animation -->
+        <div class="card" style="grid-column: span 4;">
+          <span class="pill">Animation</span>
+          <h3>Animation de match</h3>
+          <p class="muted">
+            <strong style="color:var(--accent)">Seulement 39,95&nbsp;$ / match</strong><br>
+            
+          </p>
+          <ul class="muted">
+            <li><strong>3&nbsp;h&nbsp;30 d’animation</strong> par match (30&nbsp;min avant‑match, match <strong>2&nbsp;h&nbsp;30</strong> env., 30&nbsp;min après‑match).</li>
+            <li>Musique, effets sonores et ambiance.</li>
+          </ul>
+        </div>
+
+        <!-- Carte 2 : Location du terminal -->
+        <div class="card" style="grid-column: span 4;">
+          <span class="pill">Équipement + droits musicaux</span>
+          <h3>Location du terminal</h3>
+          <p class="muted"><strong style="color:var(--accent)">49,95&nbsp;$ / mois</strong></p>
+          <ul class="muted">
+            <li>Terminal fourni avec licences musicales.</li>
+            <li>Mises à jour logicielles incluses.</li>
+          </ul>
+        </div>
+
+        <!-- Carte 3 : Informations additionnelles -->
+        <div class="card" style="grid-column: span 4;">
+          <span class="pill">Informations additionnelles</span>
+          <h3>Informations additionnelles</h3>
+          <ul class="muted">
+            <li><strong>Essai gratuit</strong> de <strong>deux matchs</strong>, sans obligation.</li>
+            <li><strong>Installation initiale gratuite pour les essais</strong><sup>*</sup>.</li>
+            <li><strong>Déplacement</strong> inclus dans un rayon de <strong>25&nbsp;km</strong> autour de <strong>Montréal</strong> et de <strong>Terrebonne</strong>.</li>
+          </ul>
+          <p class="footnote">* Offre applicable aux <strong>deux matchs d’essai</strong> uniquement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="apropos" class="section">
+    <div class="wrap">
+      <h2>À propos</h2>
+      <div class="grid">
+        <div class="card" style="grid-column: span 7;">
+          <h3>Notre histoire</h3>
+          <p class="muted">Depuis plus de 20 ans, Productions Magik fait vivre l’ambiance du hockey dans les établissements du Québec. Fondée par des passionnés de sport et de musique, l’entreprise a développé une expertise unique en animation sportive.</p>
+          <p class="muted">Notre mission : offrir une expérience immersive et authentique qui transforme chaque match en véritable événement. Avec une équipe d’animateurs chevronnés et une technologie exclusive, nous avons su fidéliser une clientèle diversifiée et bâtir une réputation solide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <div class="grid">
+        <div class="card" style="grid-column: span 7;">
+          <form id="contactForm" action="https://formspree.io/f/xblkvoyr" method="POST">
+            <!-- Remplacez XXXXXXXX par votre ID Formspree -->
+            <label>Nom complet<br>
+              <input name="name" required placeholder="Votre nom" style="width:100%;padding:10px 12px;margin-top:6px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:var(--text)">
+            </label>
+            <div style="height:12px"></div>
+            <label>Courriel<br>
+              <input type="email" name="email" required placeholder="vous@exemple.com" style="width:100%;padding:10px 12px;margin-top:6px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:var(--text)">
+            </label>
+            <div style="height:12px"></div>
+            <label>Téléphone<br>
+              <input type="tel" name="phone" inputmode="tel" placeholder="ex. (438) 123-4567" style="width:100%;padding:10px 12px;margin-top:6px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:var(--text)">
+            </label>
+            <div style="height:12px"></div>
+            <label>Message<br>
+              <textarea name="message" rows="5" placeholder="Votre message…" style="width:100%;padding:10px 12px;margin-top:6px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:var(--text)"></textarea>
+            </label>
+            <!-- Aides Formspree -->
+            <input type="hidden" name="_subject" value="Nouveau message — Site Productions Magik">
+            <input type="text" name="_gotcha" style="display:none">
+            <div style="height:14px"></div>
+            <button class="btn accent" type="submit">Envoyer</button>
+            <p id="formMsg" class="muted" style="margin-top:10px;" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="card" style="grid-column: span 5;">
+          <h3>Coordonnées</h3>
+          <p class="muted">Terrebonne, Québec</p>
+          <p class="muted">📧 Courriel : <a class="link" href="mailto:info@productionsmagik.com">info@productionsmagik.com</a><br>📞 Téléphone : <a class="link" href="tel:+14388634890">(438) 863-4890</a><br>💬 Texto : <a class="link" href="sms:+14388634890">Envoyer un SMS</a></p>
+          <div class="divider"></div>
+          <p class="muted">Horaires de bureau : Lun–Ven 9h–17h</p>
+          <p class="muted" style="font-weight:bold;color:var(--accent)">📞💬 Durant les matchs : nous offrons un support immédiat, rapide et efficace pour répondre à vos besoins en temps réel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <small>© <span id="year"></span> Productions Magik. Tous droits réservés.</small>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  <script>
+    // === Logo perso (essai) ===
+    // Collez ici votre image en data URI (ex.: "data:image/png;base64,AAAA...")
+    const PM_LOGO = ""; // ← à remplir pour activer votre logo
+    (function(){
+      if (!PM_LOGO) return; // garde le losange si vide
+      const img = document.getElementById('brandLogo');
+      const svg = document.querySelector('.logo-diamond');
+      if (img){ img.src = PM_LOGO; img.style.display = 'block'; }
+      if (svg){ svg.style.display = 'none'; }
+    })();
+  </script>
+<script>
+    // Formspree: envoi AJAX + message de confirmation + état "Envoi en cours…"
+    (function(){
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+      const msg = document.getElementById('formMsg');
+      const btn = form.querySelector('button[type="submit"]');
+      const btnLabel = btn ? btn.textContent : '';
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        // État : envoi en cours
+        if (msg){ msg.textContent = '⏳ Envoi en cours…'; msg.style.color = ''; }
+        if (btn){ btn.disabled = true; btn.setAttribute('aria-busy','true'); btn.textContent = '⏳ Envoi en cours…'; }
+
+        try{
+          const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }});
+          if (res.ok){
+            if (msg){ msg.textContent = '✅ Merci! Votre message a été envoyé.'; msg.style.color = '#86efac'; }
+            form.reset();
+          } else {
+            if (msg){ msg.textContent = '❌ Oups, impossible d’envoyer le message pour l’instant.'; msg.style.color = '#fca5a5'; }
+          }
+        }catch(err){
+          if (msg){ msg.textContent = '❌ Erreur réseau : veuillez réessayer.'; msg.style.color = '#fca5a5'; }
+        }finally{
+          if (btn){ btn.disabled = false; btn.removeAttribute('aria-busy'); btn.textContent = btnLabel; }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
